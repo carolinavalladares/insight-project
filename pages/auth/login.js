@@ -4,6 +4,7 @@ import { auth } from "../../utils/firebase";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
+import { checkUserLoggedIn } from "../../utils/checkUser";
 
 export default function LoginPage() {
   const [user, loading] = useAuthState(auth);
@@ -11,28 +12,20 @@ export default function LoginPage() {
   const route = useRouter();
   const googleProvider = new GoogleAuthProvider();
 
+  // Check if user is logged in and redirect accondingly
+  useEffect(() => {
+    checkUserLoggedIn(user, loading, route);
+  }, [user, loading]);
+
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log(result);
-      route.push("/");
+      route.push("/dashboard");
     } catch (error) {
       console.log(error);
     }
   };
-
-  const checkUserLoggedIn = () => {
-    if (loading) {
-      return;
-    }
-    if (user) {
-      return route.push("/");
-    }
-  };
-
-  useEffect(() => {
-    checkUserLoggedIn();
-  }, [user, loading]);
 
   return (
     <div className="max-w-screen-sm m-auto px-4 mt-20">
