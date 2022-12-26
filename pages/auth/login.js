@@ -21,23 +21,23 @@ export default function LoginPage() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log(result);
-      route.push("/dashboard");
+      route.push("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="max-w-screen-sm m-auto px-4 mt-20">
-      <h2 className="text-lg mb-3">Join the app!</h2>
+    <div className="max-w-screen-sm m-auto px-4 mt-20 shadow-lg bg-white p-4 rounded-lg font-poppins">
+      <h2 className="text-lg mb-3 font-semibold">Join the app!</h2>
 
       <div>
-        <p className="mb-4">Login with one of the providers:</p>
+        <p className="mb-4 text-sm">Login with one of the providers:</p>
 
         <div>
           <button
             onClick={loginWithGoogle}
-            className="flex items-center gap-2 bg-slate-800 text-white w-full h-11 px-3 rounded-lg"
+            className="flex items-center gap-2 bg-slate-800 text-white w-full h-11 px-3 rounded-lg text-sm"
           >
             <FcGoogle className="text-lg" />
             Google

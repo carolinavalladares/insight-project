@@ -11,34 +11,57 @@ export default function Nav() {
 
   return (
     <nav className=" p-4 font-poppins bg-white drop-shadow-sm">
-      <div className="max-w-screen-lg flex items-center justify-between m-auto">
+      <div className="max-w-screen-lg flex items-center justify-between m-auto relative">
         <Link href={"/"}>
           <h1 className="text-lg">Insight</h1>
         </Link>
 
         {user && (
           <div className="flex items-center gap-4">
-            <button
-              title="add to-do"
-              className="bg-teal-700 text-white p-2 rounded-full"
-            >
-              <AiOutlinePlus />
-            </button>
+            <Link href={"/new-note"}>
+              <button
+                title="add to-do"
+                className="bg-teal-700 text-white p-2 rounded-full focus:bg-teal-600 hover:bg-teal-600"
+              >
+                <AiOutlinePlus />
+              </button>
+            </Link>
+
             <div
-              onMouseEnter={() => setShowDropdown(true)}
-              onMouseLeave={() => setShowDropdown(false)}
+              onMouseEnter={
+                window.innerWidth > 992 ? () => setShowDropdown(true) : null
+              }
+              onMouseLeave={
+                window.innerWidth > 992 ? () => setShowDropdown(false) : null
+              }
+              onClick={
+                window.innerWidth <= 992
+                  ? () => setShowDropdown(!showDropdown)
+                  : null
+              }
             >
-              <Link href={"/dashboard"}></Link>
-              <Image
-                className="rounded-full relative cursor-pointer"
-                width={40}
-                height={40}
-                src={user.photoURL}
-                alt=""
-              />
+              {window.innerWidth > 992 ? (
+                <Link href={"/dashboard"}>
+                  <Image
+                    className="rounded-full cursor-pointer"
+                    width={40}
+                    height={40}
+                    src={user.photoURL}
+                    alt=""
+                  />
+                </Link>
+              ) : (
+                <Image
+                  className="rounded-full cursor-pointer"
+                  width={40}
+                  height={40}
+                  src={user.photoURL}
+                  alt=""
+                />
+              )}
 
               <div
-                className={`shadow-lg py-4 absolute right-4 rounded-lg bg-white top-20 before:h-6 before:bg-transparent before:w-full before:absolute before:-top-6 before:right-0 ${
+                className={`shadow-lg py-4 absolute right-2 rounded-lg bg-white top-16 before:h-6 before:bg-transparent before:w-full before:absolute before:-top-6 before:right-0 ${
                   !showDropdown ? "hidden" : ""
                 }`}
               >
@@ -46,6 +69,13 @@ export default function Nav() {
                   {user.displayName}
                 </h4>
                 <ul className="px-4 pt-2">
+                  {window.innerWidth <= 992 ? (
+                    <li className="mb-1">
+                      <Link className="text-sm" href={"/dashboard"}>
+                        <button>Dashboard</button>
+                      </Link>
+                    </li>
+                  ) : null}
                   <li>
                     <button className="text-sm" onClick={() => auth.signOut()}>
                       Sign out
