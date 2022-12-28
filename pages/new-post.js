@@ -24,7 +24,6 @@ export default function NewNote() {
     if (!user) return route.push("/auth/login");
     if (routerData) {
       setNote(routerData);
-      console.log(routerData);
     }
   };
 
