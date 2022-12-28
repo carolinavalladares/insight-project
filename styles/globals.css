@@ -17,3 +17,10 @@ body {
   overflow-x: hidden;
   background-color: #eeeeee;
 }
+
+/* ================================= */
+
+.rdw-embedded-modal,
+.rdw-embedded-modal {
+  height: auto !important;
+}

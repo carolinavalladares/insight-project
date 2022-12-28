@@ -18,7 +18,7 @@ export default function Nav() {
 
         {user && (
           <div className="flex items-center gap-4">
-            <Link href={"/new-note"}>
+            <Link href={"/new-post"}>
               <button
                 title="add to-do"
                 className="bg-teal-700 text-white p-2 rounded-full focus:bg-teal-600 hover:bg-teal-600"
