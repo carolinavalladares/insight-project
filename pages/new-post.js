@@ -82,7 +82,11 @@ export default function NewNote() {
         onSubmit={(e) => handleSubmit(e)}
         className="flex flex-col p-4 bg-white shadow-lg rounded-lg"
       >
-        <h3 className="mb-3 font-semibold ">Add new insight</h3>
+        {note.id ? (
+          <h3 className="mb-3 font-semibold ">Edit insight</h3>
+        ) : (
+          <h3 className="mb-3 font-semibold ">Add new insight</h3>
+        )}
 
         <textarea
           className=" border h-48 p-3 rounded-md text-sm focus:border-teal-600 outline-none "
@@ -101,7 +105,7 @@ export default function NewNote() {
         </p>
 
         <button className=" h-11 rounded-md text-white bg-teal-700 focus:bg-teal-600 outline-none hover:bg-teal-600">
-          Post
+          {note.id ? "Edit" : "Post"}
         </button>
       </form>
     </div>
