@@ -3,14 +3,7 @@ import { auth } from "../utils/firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db } from "../utils/firebase";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function NewNote() {
   const [user, loading] = useAuthState(auth);
@@ -50,7 +43,7 @@ export default function NewNote() {
       const docRef = doc(db, "posts", note.id);
       const updatedPost = {
         ...note,
-        time: serverTimestamp(),
+        createdAt: new Date(),
       };
       await updateDoc(docRef, updatedPost);
 
@@ -63,12 +56,16 @@ export default function NewNote() {
         avatar: user.photoURL,
         username: user.displayName,
         userId: user.uid,
-        time: serverTimestamp(),
+        createdAt: new Date(),
+        comments: [],
       };
 
       const collectionRef = collection(db, "posts");
-
-      await addDoc(collectionRef, newNote);
+      try {
+        await addDoc(collectionRef, newNote);
+      } catch (e) {
+        console.log(e);
+      }
 
       setNote({ text: "" });
     }

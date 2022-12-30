@@ -22,7 +22,7 @@ export default function Dashboard() {
 
   //   check if logged in and redirect accordingly
   useEffect(() => {
-    checkUserLoggedIn(user, loading, route);
+    checkUserLoggedIn(user, loading, route, "/dashboard");
   }, [user, loading]);
 
   const getPosts = () => {
@@ -70,10 +70,10 @@ export default function Dashboard() {
 
       {posts.length > 0 && (
         <div className="">
-          {posts.map((post, index) => {
+          {posts.map((post) => {
             return (
-              <Post key={index} {...post}>
-                <div className="mt-2 text-sm flex items-center gap-2">
+              <Post key={post.id} {...post}>
+                <div className="mt-2 text-sm flex items-center gap-3">
                   <Link href={{ pathname: "/new-post", query: { ...post } }}>
                     <button
                       title="edit"

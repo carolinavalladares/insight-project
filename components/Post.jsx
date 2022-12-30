@@ -7,7 +7,7 @@ export default function Post({ avatar, username, text, children }) {
       </div>
       <p className="text-base">{text}</p>
 
-      <div>{children}</div>
+      <div className="mt-2">{children}</div>
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   // Check if user is logged in and redirect accondingly
   useEffect(() => {
-    checkUserLoggedIn(user, loading, route);
+    checkUserLoggedIn(user, loading, route, "/");
   }, [user, loading]);
 
   const loginWithGoogle = async () => {

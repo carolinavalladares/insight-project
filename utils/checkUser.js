@@ -1,4 +1,4 @@
-export function checkUserLoggedIn(user, loading, route) {
+export function checkUserLoggedIn(user, loading, route, path) {
   if (loading) return;
   if (!user) {
     if (route.pathname === "/auth/login") {
@@ -6,9 +6,9 @@ export function checkUserLoggedIn(user, loading, route) {
     }
     return route.push("/auth/login");
   } else if (user) {
-    if (route.pathname === "/dashboard") {
+    if (route.pathname === path) {
       return;
     }
-    return route.push("/dashboard");
+    return route.push(path);
   }
 }

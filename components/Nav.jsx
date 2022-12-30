@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../utils/firebase";
-import Image from "next/image";
+
 import { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
@@ -42,10 +42,8 @@ export default function Nav() {
             >
               {window.innerWidth > 992 ? (
                 <Link href={"/dashboard"}>
-                  <Image
-                    className="rounded-full cursor-pointer"
-                    width={40}
-                    height={40}
+                  <img
+                    className="rounded-full cursor-pointer w-10 h-10"
                     src={user.photoURL}
                     alt=""
                   />

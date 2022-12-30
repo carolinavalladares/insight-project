@@ -1,16 +1,34 @@
 import Head from "next/head";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
 import { checkUserLoggedIn } from "../utils/checkUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { collection, onSnapshot } from "firebase/firestore";
+import Post from "../components/Post";
+import Link from "next/link";
 
 export default function Home() {
   const [user, loading] = useAuthState(auth);
+  const [posts, setPosts] = useState([]);
   const route = useRouter();
 
+  const getData = () => {
+    const collectionRef = collection(db, "posts");
+
+    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+      setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return unsubscribe;
+  };
+
   useEffect(() => {
-    checkUserLoggedIn(user, loading, route);
+    checkUserLoggedIn(user, loading, route, "/");
+    if (!user) {
+      return;
+    }
+    console.log(user.photoURL);
+    getData();
   }, [user, loading]);
 
   return (
@@ -21,7 +39,22 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <main>
+        <div className="m-auto max-w-screen-lg">
+          <h2 className="my-3 text-lg">Timeline</h2>
+          {posts.map((post) => {
+            return (
+              <Post key={post.id} {...post}>
+                <Link href={{ pathname: post.id, query: { ...post } }}>
+                  <button className="text-gray-400 text-xs font-thin mt-2">
+                    {post.comments ? post.comments.length : 0} Comments
+                  </button>
+                </Link>
+              </Post>
+            );
+          })}
+        </div>
+      </main>
     </>
   );
 }
