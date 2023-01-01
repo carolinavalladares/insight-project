@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function Dashboard() {
   const route = useRouter();
@@ -56,6 +57,11 @@ export default function Dashboard() {
     const docRef = doc(db, "posts", post.id);
 
     deleteDoc(docRef);
+
+    toast("Post deleted!", {
+      type: "success",
+      toastId: "success1",
+    });
   };
 
   useEffect(() => {

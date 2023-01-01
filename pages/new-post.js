@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db } from "../utils/firebase";
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function NewNote() {
   const [user, loading] = useAuthState(auth);
@@ -28,12 +29,18 @@ export default function NewNote() {
     e.preventDefault();
 
     if (!note.text) {
-      console.log("note cannot be empty...");
+      toast("note cannot be empty...", {
+        type: "error",
+        toastId: "error1",
+      });
       return;
     }
 
     if (note.text.length > 300) {
-      console.log("Note must be 300 characters or shorter...");
+      toast("Note must be 300 characters or shorter...", {
+        type: "error",
+        toastId: "error1",
+      });
       return;
     }
 
@@ -47,7 +54,10 @@ export default function NewNote() {
       };
       await updateDoc(docRef, updatedPost);
 
-      console.log("updated post...");
+      toast("Post updated!", {
+        type: "success",
+        toastId: "success1",
+      });
     } else {
       // create new post
 
@@ -69,6 +79,10 @@ export default function NewNote() {
 
       setNote({ text: "" });
     }
+    toast("Post created!", {
+      type: "success",
+      toastId: "success1",
+    });
     route.push("/dashboard");
   };
 

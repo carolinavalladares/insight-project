@@ -5,6 +5,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 
 export default function PostDetails() {
   const route = useRouter();
@@ -34,6 +35,10 @@ export default function PostDetails() {
       });
 
       setNewComment("");
+      toast("Comment added!", {
+        type: "success",
+        toastId: "success1",
+      });
       console.log("comment added!");
     } catch (e) {
       console.log(e);
