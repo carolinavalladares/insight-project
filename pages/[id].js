@@ -1,14 +1,12 @@
 import Post from "../components/Post";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AiFillDelete, AiFillEdit, AiOutlineSend } from "react-icons/ai";
+import { AiOutlineSend } from "react-icons/ai";
 import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { comment } from "postcss";
-import Link from "next/link";
 
-export default function postDetails() {
+export default function PostDetails() {
   const route = useRouter();
   const post = route.query;
   const [user, loading] = useAuthState(auth);
