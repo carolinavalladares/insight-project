@@ -27,7 +27,7 @@ export default function Home() {
     if (!user) {
       return;
     }
-    console.log(user.photoURL);
+
     getData();
   }, [user, loading]);
 

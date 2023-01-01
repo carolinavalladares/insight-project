@@ -60,8 +60,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     getPosts();
-
-    console.log(posts);
   }, [user, loading]);
 
   return (

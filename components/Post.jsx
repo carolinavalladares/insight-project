@@ -3,7 +3,7 @@ export default function Post({ avatar, username, text, children }) {
     <div className="shadow-lg bg-white p-5 rounded-lg font-poppins mb-4">
       <div className="flex items-center mb-2">
         <img
-          referrerpolicy="no-referrer"
+          referrerPolicy="no-referrer"
           className="rounded-full block w-10 mr-2"
           src={avatar}
           alt=""

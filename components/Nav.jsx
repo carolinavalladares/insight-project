@@ -50,7 +50,7 @@ export default function Nav() {
                 </Link>
               ) : (
                 <img
-                  referrerpolicy="no-referrer"
+                  referrerPolicy="no-referrer"
                   className="rounded-full cursor-pointer w-10 h-10"
                   src={user.photoURL}
                   alt="user image"
