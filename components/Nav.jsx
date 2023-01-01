@@ -49,12 +49,11 @@ export default function Nav() {
                   />
                 </Link>
               ) : (
-                <Image
-                  className="rounded-full cursor-pointer"
-                  width={40}
-                  height={40}
+                <img
+                  referrerpolicy="no-referrer"
+                  className="rounded-full cursor-pointer w-10 h-10"
                   src={user.photoURL}
-                  alt=""
+                  alt="user image"
                 />
               )}
 
