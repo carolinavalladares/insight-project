@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Nav />
-      <div className="lg:px-4">{children}</div>
+      <div className="px-4 lg:p-0">{children}</div>
     </>
   );
 }

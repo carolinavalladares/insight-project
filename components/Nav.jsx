@@ -2,12 +2,27 @@ import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../utils/firebase";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 export default function Nav() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [user, loading] = useAuthState(auth);
+  const [screenSize, setScreenSize] = useState(0);
+
+  useEffect(() => {
+    setScreenSize(window.innerWidth);
+
+    window.addEventListener("resize", () => {
+      setScreenSize(window.innerWidth);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (screenSize > 992) {
+      setShowDropdown(false);
+    }
+  }, [screenSize]);
 
   return (
     <nav className=" p-4 font-poppins bg-white drop-shadow-sm">
@@ -29,18 +44,16 @@ export default function Nav() {
 
             <div
               onMouseEnter={
-                window.innerWidth > 992 ? () => setShowDropdown(true) : null
+                screenSize > 992 ? () => setShowDropdown(true) : null
               }
               onMouseLeave={
-                window.innerWidth > 992 ? () => setShowDropdown(false) : null
+                screenSize > 992 ? () => setShowDropdown(false) : null
               }
               onClick={
-                window.innerWidth <= 992
-                  ? () => setShowDropdown(!showDropdown)
-                  : null
+                screenSize <= 992 ? () => setShowDropdown(!showDropdown) : null
               }
             >
-              {window.innerWidth > 992 ? (
+              {screenSize > 992 ? (
                 <Link href={"/dashboard"}>
                   <img
                     className="rounded-full cursor-pointer w-10 h-10"
